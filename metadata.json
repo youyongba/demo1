@@ -1,0 +1,6 @@
+{
+  "name": "吉林省高标准农田建设监测大屏",
+  "description": "一屏式吉林省高标准农田与黑土地保护建设全景监测大屏，集成GIS空间图层下钻、年度任务联动、质量巡查轨迹回放、单兵记录仪视频通话与浏览器高清录屏功能。",
+  "requestFramePermissions": ["display-capture"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
