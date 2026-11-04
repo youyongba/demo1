@@ -5,7 +5,7 @@ interface ContainerScaleProps {
 }
 
 export const ContainerScale: React.FC<ContainerScaleProps> = ({ children }) => {
-  const [scale, setScale] = useState(1);
+  const [scale, setScale] = useState({ scaleX: 1, scaleY: 1 });
 
   useEffect(() => {
     const handleResize = () => {
@@ -14,10 +14,12 @@ export const ContainerScale: React.FC<ContainerScaleProps> = ({ children }) => {
       const currentWidth = window.innerWidth;
       const currentHeight = window.innerHeight;
 
+      // Full-bleed stretch scaling: spans 100% of viewport width and height
+      // Guaranteed zero empty space/black bars on both left and right sides
       const scaleX = currentWidth / targetWidth;
       const scaleY = currentHeight / targetHeight;
-      const computedScale = Math.min(scaleX, scaleY);
-      setScale(computedScale);
+
+      setScale({ scaleX, scaleY });
     };
 
     handleResize();
@@ -26,20 +28,18 @@ export const ContainerScale: React.FC<ContainerScaleProps> = ({ children }) => {
   }, []);
 
   return (
-    <div className="w-screen h-screen overflow-hidden bg-[#050b1a] relative flex items-center justify-center select-none">
+    <div className="w-full h-full min-w-full min-h-full overflow-hidden bg-[#060d1f] relative select-none">
       <div
         style={{
           width: '1920px',
           height: '1080px',
-          transform: `scale(${scale})`,
-          transformOrigin: 'center center',
+          transform: `scale(${scale.scaleX}, ${scale.scaleY})`,
+          transformOrigin: '0 0',
           position: 'absolute',
-          left: '50%',
-          top: '50%',
-          marginLeft: '-960px',
-          marginTop: '-540px',
+          left: 0,
+          top: 0,
         }}
-        className="overflow-hidden bg-[#060d1f] text-slate-100 flex flex-col shadow-2xl"
+        className="overflow-hidden bg-[#060d1f] text-slate-100 flex flex-col"
       >
         {children}
       </div>
